@@ -1,10 +1,12 @@
-<!--<div class="toggle">-->
-  <!--<div class="tgl-btn-wrapper" [attr.toggle-status]="checked">-->
-    <!--<input type="checkbox" [attr.aria-label]="description"  (ngModelChange)="changeValue()" [name]="name" class="tgl tgl-light" [id]="id" (change)="doButtonClick()">-->
-    <!--<label class="tgl-btn" [for]="id"></label>-->
-  <!--</div>-->
-  <!--<div class="toggle-wrapper">-->
-    <!--<label class="toggle-info">{{description}}</label>-->
-  <!--</div>-->
-  <!--<div class="clear-both"></div>-->
-<!--</div>-->
+<div class="toggle">
+
+  <div class="tgl-btn-wrapper" [attr.toggle-status]="checked">
+    <input type="checkbox" [attr.aria-label]="description" [ngModel]="checked"  (ngModelChange)="changeValue()" [name]="name" class="tgl tgl-light" [id]="id" (change)="doButtonClick()">
+    <label class="tgl-btn" [for]="id"></label>
+  </div>
+
+  <div class="toggle-wrapper">
+    <label class="toggle-info">{{description}}</label>
+  </div>
+
+</div>

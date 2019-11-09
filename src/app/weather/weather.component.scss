@@ -1,0 +1,70 @@
+* {
+  font-family: 'Microsoft YaHei';
+  color: #4C4C4C;
+}
+
+.header{
+  margin: 0 2rem;
+}
+
+.units-toggle-wrapper{
+  display: flex;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.weather-wrapper{
+  margin: 0 2rem;
+
+  .weather-list{
+    display: flex;
+    flex-direction: column;
+
+    .daily{
+      padding: 1rem;
+      border: 1px solid #c1dbff;
+      background-color: #eff6ff;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .daily-weather{
+      display: flex;
+      padding: 1rem;
+      flex-direction: row;
+      background-color: #f9f9f9;
+      border-right: 1px solid #c6c2c1;
+      border-left: 1px solid #c6c2c1;
+    }
+
+    .weather-item{
+      text-align: center;
+      margin-right: 1rem;
+      min-width: 10rem;
+    }
+
+    .weather-item:first-child{
+      margin-left: 0;
+    }
+
+    .date{
+      font-weight: bold;
+    }
+  }
+
+  .icon-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 0;
+    min-height: 50px;
+
+    .weather-icon{
+      display: flex;
+      color: #c6c2c1;
+      justify-content: center;
+    }
+  }
+}

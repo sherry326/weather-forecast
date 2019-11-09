@@ -1,38 +1,49 @@
-<h5 class="title">Weather forecast during {{cityName}}</h5>
-<h5 class="title">{{weatherInfo?.city?.name}}</h5>
-<div>
+<div class="header">
+  <input type="text" [(ngModel)]="cityName">
 
+  <ul class="city-list">
+    <li *ngFor="let city of (cities | cityFilter: cityName)">{{city.cityName}}</li>
+  </ul>
+
+  <h5 class="title">Weather forecast during {{cityName}}</h5>
+
+
+  <div class="units-toggle-wrapper">
+    <app-toggle ([checked])="usedFahrenheitFlay"
+                [id]="units"
+                [description]="'I want to see Fahrenheit'"
+                (checkedChange)="changedToFahrenheit($event)">
+    </app-toggle>
+  </div>
 </div>
 
-<!--<div>-->
-  <!--please chose the units-->
-  <!--<app-toggle [checked]="true" -->
-              <!--[description]="'I want to see Fahrenheit'">-->
-  <!--</app-toggle>-->
-<!--</div>-->
 <div class="weather-wrapper">
-  <!--<div *ngFor="let item of weatherInfo; let i = index;">-->
 
-  <!--</div>-->
-  <ul class="weather-list">
-    <li class="weather-item" *ngFor="let item of weatherInfo?.list; let i = index;">
-      <p class="date">{{item?.dt_txt| date:'fullDate'}}</p>
+  <ul class="weather-list" *ngFor="let dailyWeathers of weatherInfoSummary?.list;">
+    <legend class="daily">{{dailyWeathers?.day| date:'fullDate'}}</legend>
 
-      <div class="icon-wrapper">
-        <app-icon-svg [iconId]="item?.weather[0]?.icon" class="weather-icon"></app-icon-svg>
-      </div>
+    <div class="daily-weather">
 
-      <div class="weather-main">
-        <p class="description">{{item?.weather[0]?.description | titlecase}}</p>
-        <p>
-          <span>{{item?.main?.temp_min}}</span>
-          <span>~</span>
-          <span>{{item?.main?.temp_max}}</span>
-          <span>{{}}</span>
-        </p>
+      <li class="weather-item" *ngFor="let weatherInfo of dailyWeathers?.weatherInfos">
+        <p class="date">{{weatherInfo?.dt_txt| date:'shortTime'}}</p>
 
-      </div>
-    </li>
+        <div class="icon-wrapper">
+          <app-icon-svg [iconId]="weatherInfo?.weather[0]?.icon" class="weather-icon"></app-icon-svg>
+        </div>
+
+        <div class="weather-main">
+          <p class="description">{{weatherInfo?.weather[0]?.description | titlecase}}</p>
+          <p>
+            <span>{{weatherInfo?.main?.temp}}</span>
+
+            <span *ngIf="units === 'metric'">℃</span>
+            <span *ngIf="units === 'imperial'">℉</span>
+          </p>
+
+        </div>
+      </li>
+    </div>
+
   </ul>
 
 </div>

@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 @Component({
   selector: 'app-toggle',
   templateUrl: './toggle.component.html',
-  styleUrls: ['./toggle.component.css']
+  styleUrls: ['./toggle.component.scss']
 })
 export class ToggleComponent implements OnInit {
   @Input() checked: boolean;
@@ -13,7 +13,7 @@ export class ToggleComponent implements OnInit {
   @Output() checkedChange: EventEmitter<boolean>;
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   constructor() {
-    this.checked = true;
+    this.checked = false;
     this.checkedChange = new EventEmitter<boolean>();
     this.name = '';
     this.id = '';

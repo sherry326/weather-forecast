@@ -1,24 +1,38 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from './weather.service';
-import {getWeatherRequest} from '../models/request.model';
+import {GetWeatherRequest} from '../models/request.model';
 import {UNITS_IMPERIAL, UNITS_MERTRIC} from '../shared/analysis/analytic.constant';
+import {isDeepEmpty} from '../shared/utils/object.utils';
+import {forEach} from '@angular/router/src/utils/collection';
+import {City} from '../models/weather.model';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css']
+  styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
-  cityName: string;
+  indexCity: any;
   units: string;
-  weatherInfo: any;
-
+  weatherInfoSummary: any;
+  usedFahrenheitFlay: boolean;
+  cities =  [{
+      id: 1,
+      cityName: 'Toronto',
+      countryCode: 'CA',
+    }, {
+      id: 2,
+      cityName: 'London',
+      countryCode: 'UK',
+    }];
   constructor(private weatherService: WeatherService) {
-    this.cityName = 'Toronto';
+    this.indexCity = new City('1', 'Toronto', 'CA');
+    this.usedFahrenheitFlay = false;
+    this.units = UNITS_MERTRIC;
   }
 
   ngOnInit() {
-    this.getWeatherByCityName();
+    this.getWeatherByCityName(this.indexCity, this.units);
     // this.weatherInfo = {
     //   'cod': '200',
     //   'message': 0,
@@ -1363,18 +1377,68 @@ export class WeatherComponent implements OnInit {
     // }
   }
 
-  getWeatherByCityName() {
-    // this.units = UNITS_IMPERIAL;
-    this.units = UNITS_MERTRIC;
-    const getWeatherReq = new getWeatherRequest(this.cityName, this.units);
+  /**
+   * get city weather by city name
+   * @param city, units
+   */
+  getWeatherByCityName(city, units): void {
+    const getWeatherReq = new GetWeatherRequest(city.cityName, city.countryCode, units);
     this.weatherService.getWeather(getWeatherReq).then(data => {
       console.log('data', data);
-      // if (data.error) {
-      //   console.log('error', data.error);
-      // } else {
-        this.weatherInfo = data;
-        console.log('weatherInfo', this.weatherInfo);
-      // }
+      if (!isDeepEmpty(data)) {
+        this.weatherInfoSummary = data;
+        this.weatherInfoSummary.list = this.getDailyWeatherGroup(this.weatherInfoSummary);
+
+        console.log('weatherInfoSummary', this.weatherInfoSummary);
+      } else {
+        console.log('error', data);
+      }
     });
   }
+
+  /**
+   * Re-integrate the weather in the return value on a daily basis
+   * @param weatherInfo
+   */
+  getDailyWeatherGroup(weatherInfo: any): any {
+    const dailyWeatherMap = new Map<string, any>();
+    const result = [];
+
+    if (!isDeepEmpty(weatherInfo) && !isDeepEmpty(weatherInfo.list)) {
+      weatherInfo.list.forEach(item => setDailyWeatherGroup(item));
+    }
+
+    dailyWeatherMap.forEach(value => result.push(value));
+    return result;
+
+    // Integrate all weatherInfo for each day
+    function setDailyWeatherGroup(item: any): void {
+      const day = item.dt_txt.trim().substring(8, 10);
+      let dailySummary = dailyWeatherMap.get(day);
+
+      if (!dailySummary) {
+        dailySummary = setDailyWeather(item);
+        dailyWeatherMap.set(day, dailySummary);
+      }
+      dailySummary.weatherInfos.push(item);
+    }
+
+    // convert to the DailyWeatherSummary model
+    function setDailyWeather(item: any): any {
+      return {
+        day: item.dt_txt,
+        weatherInfos: []
+      };
+    }
+  }
+
+  /**
+   * When the user chooses to view the Fahrenheit re-call interface
+   * @param usedFahrenheitFlay
+   */
+  changedToFahrenheit(usedFahrenheitFlay): void {
+    this.units = usedFahrenheitFlay ? UNITS_IMPERIAL : UNITS_MERTRIC;
+    this.getWeatherByCityName(this.indexCity, this.units);
+  }
+
 }

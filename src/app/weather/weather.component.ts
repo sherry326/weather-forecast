@@ -10,6 +10,13 @@ import {getWeatherRequest} from '../models/request.model';
 export class WeatherComponent implements OnInit {
   cityName: string;
   units: string;
+  cities =  [{
+    id: 1,
+    name: 'Toronto'
+  }, {
+    id: 2, 
+    name: 'Shanghai'
+  }];
 
   constructor(private weatherService: WeatherService) {
     this.cityName = 'Toronto';

@@ -1,3 +1,10 @@
+
+<input type="text" [(ngModel)]="cityName">
+
+<ul class="city-list">
+  <li *ngFor="let city of (cities | cityFilter: cityName)">{{city.name}}</li>
+</ul>
+
 <h5 class="title">Weather forecast during {{cityName}}</h5>
 
 <div class="weather-wrapper">

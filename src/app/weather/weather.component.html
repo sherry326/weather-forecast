@@ -1,7 +1,26 @@
 <h5 class="title">Weather forecast during {{cityName}}</h5>
+<h5 class="title">{{weatherInfo?.city?.name}}</h5>
+<div>
 
+</div>
+
+<!--<div>-->
+  <!--please chose the units-->
+  <!--<app-toggle [checked]="true" -->
+              <!--[description]="'I want to see Fahrenheit'">-->
+  <!--</app-toggle>-->
+<!--</div>-->
 <div class="weather-wrapper">
-  <div>
+  <!--<div *ngFor="let item of weatherInfo; let i = index;">-->
 
-  </div>
+  <!--</div>-->
+  <ul class="weather-list">
+    <li class="weather-item" *ngFor="let item of weatherInfo?.list; let i = index;">
+      <p>{{item?.dt| date:'medium'}}</p>
+      <div class="icon-wrapper">
+        <app-icon-svg [iconId]="'01'" class="weather-icon"></app-icon-svg>
+      </div>
+    </li>
+  </ul>
+
 </div>

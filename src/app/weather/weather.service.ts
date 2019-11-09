@@ -13,7 +13,7 @@ export class WeatherService {
     // api.openweathermap.org/data/2.5/forecast/daily?q={city name},{country code}&cnt={cnt}
     // api.openweathermap.org/data/2.5/forecast/daily?q=London&mode=xml&units=metric&cnt=7
     this.endPoint = 'https://api.openweathermap.org/data/2.5/forecast?';
-    this.appid = 'a94ace9be7994ce0beb8b5e27cefcd7b';
+    // this.appid = 'a94ace9be7994ce0beb8b5e27cefcd7b';
     this.appid = 'a94ace9be7994ce0beb8b5e27cefcd7b';
 
   }

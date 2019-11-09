@@ -3,6 +3,14 @@
   font-family: 'Microsoft YaHei';
 }
 
-.weather-wrapper {
-
+.weather-wrapper{
+  .weather-item{
+    list-style: none;
+  }
+  .icon-wrapper{
+    .weather-icon{
+      display: flex;
+      color: #EBEDEC;
+    }
+  }
 }

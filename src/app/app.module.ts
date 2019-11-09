@@ -7,18 +7,18 @@ import { WeatherComponent } from './weather/weather.component';
 import {HttpService} from './services/http.service';
 import {WeatherService} from './weather/weather.service';
 import {HttpClientModule} from '@angular/common/http';
-import { ToggleComponent } from './shared/toggle/toggle.component';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherComponent,
-    ToggleComponent
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     HttpService,

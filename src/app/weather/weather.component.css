@@ -4,6 +4,11 @@
 }
 
 .weather-wrapper{
+
+  .weather-list{
+    display: flex;
+  }
+
   .weather-item{
     list-style: none;
   }

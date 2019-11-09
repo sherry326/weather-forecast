@@ -16,9 +16,9 @@
   <!--</div>-->
   <ul class="weather-list">
     <li class="weather-item" *ngFor="let item of weatherInfo?.list; let i = index;">
-      <p>{{item?.dt_txt| date:'shortDate'}}</p>
+      <p>{{item?.dt_txt| date:'fullDate'}}</p>
       <div class="icon-wrapper">
-        <app-icon-svg [iconId]="'01'" class="weather-icon"></app-icon-svg>
+        <app-icon-svg [iconId]="item?.weather[0]?.icon" class="weather-icon"></app-icon-svg>
       </div>
     </li>
   </ul>

@@ -7,8 +7,12 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class IconSvgComponent implements OnInit {
   @Input() iconId: string;
+  weatherIconArr: string[];
 
-  constructor() { }
+  constructor() {
+    this.weatherIconArr = ['13n', '13d', '10n', '04n'];
+    this.iconId = this.weatherIconArr.includes(this.iconId) ? this.iconId : '01';
+  }
 
   ngOnInit() {
   }

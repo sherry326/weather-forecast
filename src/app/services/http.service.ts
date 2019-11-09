@@ -9,9 +9,7 @@ export class HttpService {
 
   get(url: string, headers?: any): Promise<any> {
     return this.http.get(url).toPromise()
-      .then(response => {
-        console.log(response['json']());
-      })
+      .then(response => response)
       .catch((err) => {
         console.log(err);
       });

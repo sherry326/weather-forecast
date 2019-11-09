@@ -1366,14 +1366,14 @@ export class WeatherComponent implements OnInit {
     // this.units = 'imperial';
     this.units = 'metric';
     const getWeatherReq = new getWeatherRequest(this.cityName, this.units);
-    // this.weatherService.getWeather(getWeatherReq).then(data => {
-    //   console.log('data', data);
-    //   // if (data.error) {
-    //   //   console.log('error', data.error);
-    //   // } else {
-    //     this.weatherInfo = data;
-    //     console.log('weatherInfo', this.weatherInfo);
-    //   // }
-    // });
+    this.weatherService.getWeather(getWeatherReq).then(data => {
+      console.log('data', data);
+      // if (data.error) {
+      //   console.log('error', data.error);
+      // } else {
+        this.weatherInfo = data;
+        console.log('weatherInfo', this.weatherInfo);
+      // }
+    });
   }
 }

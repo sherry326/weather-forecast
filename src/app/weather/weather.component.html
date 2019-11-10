@@ -1,15 +1,23 @@
 <div class="header">
-    <h2 class="page-title">Weather Search Demo</h2>
-    <h5 class="title">Weather forecast during</h5>
-    <div class="header-search">
-      <input class="search-box" name="cityname" type="text" [(ngModel)]="cityName" (ngModelChange)="inputNameChange()">
-      <ul class="city-list" *ngIf="(cities | cityFilter: cityName).length" [hidden]="hideCityList">
-        <li *ngFor="let city of (cities | cityFilter: cityName)"  (click)="SearchCityWeather(city)">{{city.cityName}}</li>
-      </ul>
-      <button class="search-button" (click)="toSearchCityWeather($event)">Search</button>
-    </div>
-  
 
+  <h2 class="page-title">Weather Search Demo</h2>
+
+  <h5 class="title">Weather forecast during</h5>
+
+  <div class="header-search">
+
+    <input class="search-box" name="cityName" type="text" [(ngModel)]="indexCity.cityName" (ngModelChange)="inputNameChange()">
+
+    <ul class="city-list" *ngIf="(cities | cityFilter: indexCity.cityName).length" [hidden]="hideCityList">
+      <li *ngFor="let city of (cities | cityFilter: indexCity.cityName)"  (click)="SearchCityWeather(city)">
+        {{city.cityName}}
+      </li>
+    </ul>
+
+    <button class="search-button" (click)="toSearchCityWeather($event)">Search</button>
+  </div>
+
+  <p class="reminder-text">* Reminder: Since there is not enough city list, please enter the following cities (Toronto, Ottawa, Shanghai, Vancouver or London) for input search.</p>
 
   <div class="units-toggle-wrapper">
     <app-toggle ([checked])="usedFahrenheitFlay"
@@ -21,16 +29,14 @@
 </div>
 
 <div class="weather-wrapper">
-  <div class="search-loading" *ngIf="searchLoadingFlag">
-    Searching City Weather 
-    <span class="loading-animation-1">.</span>
-    <span class="loading-animation-1">.</span>
-    <span class="loading-animation-1">.</span>
-  </div>
+  <!--Loading in the request status-->
+  <app-search-lodaing [searchLoadingFlag]="searchLoadingFlag"
+                      [weatherInfoSummary]="weatherInfoSummary">
+  </app-search-lodaing>
 
-  <div class="search-loading" *ngIf="!(weatherInfoSummary && weatherInfoSummary.list && weatherInfoSummary.list.length) && !searchLoadingFlag">
-    No Weather Data for this City    
-  </div>
+  <p class="index-city-reminder" *ngIf="(weatherInfoSummary && weatherInfoSummary?.list && weatherInfoSummary?.list?.length) && !searchLoadingFlag">
+    <span class="index-city">{{weatherInfoSummary?.city.name}}'s 5 day weather forecast</span>
+  </p>
 
   <ul class="weather-list" *ngFor="let dailyWeathers of weatherInfoSummary?.list;">
     <legend class="daily">{{dailyWeathers?.day| date:'fullDate'}}</legend>
@@ -38,6 +44,7 @@
     <div class="daily-weather">
 
       <li class="weather-item" *ngFor="let weatherInfo of dailyWeathers?.weatherInfos">
+
         <p class="date">{{weatherInfo?.dt_txt| date:'shortTime'}}</p>
 
         <div class="icon-wrapper">
@@ -45,10 +52,11 @@
         </div>
 
         <div class="weather-main">
+
           <p class="description">{{weatherInfo?.weather[0]?.main | titlecase}}</p>
+
           <p class="temperature">
             <span>{{weatherInfo?.main?.temp}}</span>
-
             <span *ngIf="units === 'metric'">℃</span>
             <span *ngIf="units === 'imperial'">℉</span>
           </p>
@@ -57,6 +65,7 @@
             <app-icon-svg [iconId]="'humidity'" class="humidity-icon"></app-icon-svg>
             <span>Humidity: {{weatherInfo?.main?.humidity}}</span>
           </p>
+
         </div>
       </li>
     </div>

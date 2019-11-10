@@ -1,0 +1,10 @@
+<div class="search-loading" *ngIf="searchLoadingFlag">
+  Searching City Weather
+  <span class="loading-animation-1">.</span>
+  <span class="loading-animation-1">.</span>
+  <span class="loading-animation-1">.</span>
+</div>
+
+<div class="search-loading" *ngIf="!(weatherInfoSummary && weatherInfoSummary?.list && weatherInfoSummary?.list?.length) && !searchLoadingFlag">
+  No Weather Data for this City
+</div>

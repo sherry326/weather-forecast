@@ -132,7 +132,7 @@ export class WeatherComponent implements OnInit {
    * @param city
    */
   SearchCityWeather(city: City): void {
-    this.indexCity = city;
+    this.indexCity = Object.assign({}, city);
     this.cityName = city.cityName;
     this.getWeatherByCityName(city, this.units);
     this.hideCityList = true;

@@ -16,7 +16,7 @@ export class WeatherComponent implements OnInit {
   units: string;
   weatherInfoSummary: any;
   usedFahrenheitFlay: boolean;
-  cityName: string;
+  cityName: string = "Toronto";
   cities =  [{
       id: 1,
       cityName: 'Toronto',
@@ -26,7 +26,7 @@ export class WeatherComponent implements OnInit {
       cityName: 'London',
       countryCode: 'UK',
     }];
-  hideCityList = false;
+  hideCityList = true;
   searchLoadingFlag = false;
 
   constructor(private weatherService: WeatherService) {
@@ -1456,6 +1456,7 @@ export class WeatherComponent implements OnInit {
     if(this.cityName) {
        this.indexCity = new City(this.cityName);
        this.getWeatherByCityName(this.indexCity,  this.units);
+       this.hideCityList = true;
     }
   }
 

@@ -16,6 +16,7 @@ export class WeatherComponent implements OnInit {
   units: string;
   weatherInfoSummary: any;
   usedFahrenheitFlay: boolean;
+  cityName: string;
   cities =  [{
       id: 1,
       cityName: 'Toronto',
@@ -25,8 +26,11 @@ export class WeatherComponent implements OnInit {
       cityName: 'London',
       countryCode: 'UK',
     }];
+  hideCityList = false;
+  searchLoadingFlag = false;
+
   constructor(private weatherService: WeatherService) {
-    this.indexCity = new City('1', 'Toronto', 'CA');
+    this.indexCity = new City('Toronto','1','CA');
     this.usedFahrenheitFlay = false;
     this.units = UNITS_MERTRIC;
   }
@@ -1382,6 +1386,8 @@ export class WeatherComponent implements OnInit {
    * @param city, units
    */
   getWeatherByCityName(city, units): void {
+    this.searchLoadingFlag = true;
+    this.weatherInfoSummary = null;
     const getWeatherReq = new GetWeatherRequest(city.cityName, city.countryCode, units);
     this.weatherService.getWeather(getWeatherReq).then(data => {
       console.log('data', data);
@@ -1393,6 +1399,10 @@ export class WeatherComponent implements OnInit {
       } else {
         console.log('error', data);
       }
+      this.searchLoadingFlag = false;
+    }).catch(e => {
+      console.error(e);
+      this.searchLoadingFlag = true;
     });
   }
 
@@ -1436,9 +1446,30 @@ export class WeatherComponent implements OnInit {
    * When the user chooses to view the Fahrenheit re-call interface
    * @param usedFahrenheitFlay
    */
-  changedToFahrenheit(usedFahrenheitFlay): void {
+  changedToFahrenheit(usedFahrenheitFlay: boolean): void {
     this.units = usedFahrenheitFlay ? UNITS_IMPERIAL : UNITS_MERTRIC;
     this.getWeatherByCityName(this.indexCity, this.units);
+  }
+
+  // search city weather
+  toSearchCityWeather(event: Event) {
+    if(this.cityName) {
+       this.indexCity = new City(this.cityName);
+       this.getWeatherByCityName(this.indexCity,  this.units);
+    }
+  }
+
+  // click city item to search selected city weather
+  SearchCityWeather(city: City) {
+    this.indexCity = city;
+    this.cityName = city.cityName;
+    this.getWeatherByCityName(city,  this.units);
+    this.hideCityList = true;
+  }
+
+  // search input box changed
+  inputNameChange() {
+    this.hideCityList = false;
   }
 
 }

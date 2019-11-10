@@ -55,7 +55,8 @@
 
           <p class="description">{{weatherInfo?.weather[0]?.main | titlecase}}</p>
 
-          <p class="temperature">
+          <p class="temperature"  [ngClass]="{'metric':units === 'metric',
+                                  'imperial': units === 'imperial'}">
             <span>{{weatherInfo?.main?.temp}}</span>
             <span *ngIf="units === 'metric'">℃</span>
             <span *ngIf="units === 'imperial'">℉</span>

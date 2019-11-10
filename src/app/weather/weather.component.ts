@@ -3,7 +3,6 @@ import {WeatherService} from './weather.service';
 import {GetWeatherRequest} from '../models/request.model';
 import {UNITS_IMPERIAL, UNITS_MERTRIC} from '../shared/analysis/analytic.constant';
 import {isDeepEmpty} from '../shared/utils/object.utils';
-import {forEach} from '@angular/router/src/utils/collection';
 import {City} from '../models/weather.model';
 
 @Component({
@@ -16,7 +15,6 @@ export class WeatherComponent implements OnInit {
   units: string;
   weatherInfoSummary: any;
   usedFahrenheitFlay: boolean;
-  cityName: string = 'Toronto';
   cities = [];
   hideCityList = true;
   searchLoadingFlag = false;
@@ -53,7 +51,7 @@ export class WeatherComponent implements OnInit {
    * get city weather by city name
    * @param city, units
    */
-  getWeatherByCityName(city, units): void {
+  getWeatherByCityName(city: City, units: string): void {
 	  this.searchLoadingFlag = true;
     this.weatherInfoSummary = null;
     const getWeatherReq = new GetWeatherRequest(city.cityName, units);
@@ -133,7 +131,6 @@ export class WeatherComponent implements OnInit {
    */
   SearchCityWeather(city: City): void {
     this.indexCity = Object.assign({}, city);
-    this.cityName = city.cityName;
     this.getWeatherByCityName(city, this.units);
     this.hideCityList = true;
   }

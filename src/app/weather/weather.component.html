@@ -1,11 +1,14 @@
 <div class="header">
-  <input type="text" [(ngModel)]="cityName">
-
-  <ul class="city-list">
-    <li *ngFor="let city of (cities | cityFilter: cityName)">{{city.cityName}}</li>
-  </ul>
-
-  <h5 class="title">Weather forecast during {{cityName}}</h5>
+    <h2 class="page-title">Weather Search Demo</h2>
+    <h5 class="title">Weather forecast during</h5>
+    <div class="header-search">
+      <input class="search-box" name="cityname" type="text" [(ngModel)]="cityName" (ngModelChange)="inputNameChange()">
+      <ul class="city-list" *ngIf="(cities | cityFilter: cityName).length" [hidden]="hideCityList">
+        <li *ngFor="let city of (cities | cityFilter: cityName)"  (click)="SearchCityWeather(city)">{{city.cityName}}</li>
+      </ul>
+      <button class="search-button" (click)="toSearchCityWeather($event)">Search</button>
+    </div>
+  
 
 
   <div class="units-toggle-wrapper">
@@ -18,6 +21,16 @@
 </div>
 
 <div class="weather-wrapper">
+  <div class="search-loading" *ngIf="searchLoadingFlag">
+    Searching City Weather 
+    <span class="loading-animation-1">.</span>
+    <span class="loading-animation-1">.</span>
+    <span class="loading-animation-1">.</span>
+  </div>
+
+  <div class="search-loading" *ngIf="!(weatherInfoSummary && weatherInfoSummary.list && weatherInfoSummary.list.length) && !searchLoadingFlag">
+    No Weather Data for this City    
+  </div>
 
   <ul class="weather-list" *ngFor="let dailyWeathers of weatherInfoSummary?.list;">
     <legend class="daily">{{dailyWeathers?.day| date:'fullDate'}}</legend>

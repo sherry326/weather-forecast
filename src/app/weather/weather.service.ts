@@ -10,10 +10,10 @@ export class WeatherService {
 
   constructor(private httpService: HttpService) {
     this.endPoint = 'https://api.openweathermap.org/data/2.5/forecast?';
-    this.appid = 'a94ace9be7994ce0beb8b5e27cefcd7b';
+    this.appid = API_KEY;
   }
 
   getWeather(request: GetWeatherRequest): Promise<any> {
-    return this.httpService.get(`${this.endPoint}q=${request.cityName},${request.couctryCode}&units=${request.units}&appid=${this.appid}`);
+    return this.httpService.get(`${this.endPoint}q=${request.cityName}&units=${request.units}&appid=${this.appid}`);
   }
 }

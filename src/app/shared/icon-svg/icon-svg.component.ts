@@ -10,11 +10,11 @@ export class IconSvgComponent implements OnInit {
   weatherIconArr: string[];
 
   constructor() {
-    this.weatherIconArr = ['13n', '13d', '10n', '04n'];
-    this.iconId = this.weatherIconArr.includes(this.iconId) ? this.iconId : '01n';
+    this.weatherIconArr = ['13n', '13d', '10n', '04n', 'humidity'];
   }
 
   ngOnInit() {
+    this.iconId = this.weatherIconArr.includes(this.iconId) ? this.iconId : '01n';
   }
 
 }

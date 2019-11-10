@@ -18,15 +18,13 @@ export class WeatherComponent implements OnInit {
   usedFahrenheitFlay: boolean;
   cities =  [{
       id: 1,
-      cityName: 'Toronto',
-      countryCode: 'CA',
+      cityName: 'Toronto'
     }, {
       id: 2,
-      cityName: 'London',
-      countryCode: 'UK',
+      cityName: 'London'
     }];
   constructor(private weatherService: WeatherService) {
-    this.indexCity = new City('1', 'Toronto', 'CA');
+    this.indexCity = new City('1', 'Toronto');
     this.usedFahrenheitFlay = false;
     this.units = UNITS_MERTRIC;
   }
@@ -1382,9 +1380,8 @@ export class WeatherComponent implements OnInit {
    * @param city, units
    */
   getWeatherByCityName(city, units): void {
-    const getWeatherReq = new GetWeatherRequest(city.cityName, city.countryCode, units);
+    const getWeatherReq = new GetWeatherRequest(city.cityName, units);
     this.weatherService.getWeather(getWeatherReq).then(data => {
-      console.log('data', data);
       if (!isDeepEmpty(data)) {
         this.weatherInfoSummary = data;
         this.weatherInfoSummary.list = this.getDailyWeatherGroup(this.weatherInfoSummary);

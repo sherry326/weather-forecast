@@ -11,7 +11,7 @@
   <div class="units-toggle-wrapper">
     <app-toggle ([checked])="usedFahrenheitFlay"
                 [id]="units"
-                [description]="'I want to see Fahrenheit'"
+                [description]="'I Want to See Fahrenheit'"
                 (checkedChange)="changedToFahrenheit($event)">
     </app-toggle>
   </div>
@@ -32,14 +32,18 @@
         </div>
 
         <div class="weather-main">
-          <p class="description">{{weatherInfo?.weather[0]?.description | titlecase}}</p>
-          <p>
+          <p class="description">{{weatherInfo?.weather[0]?.main | titlecase}}</p>
+          <p class="temperature">
             <span>{{weatherInfo?.main?.temp}}</span>
 
             <span *ngIf="units === 'metric'">℃</span>
             <span *ngIf="units === 'imperial'">℉</span>
           </p>
 
+          <p class="humidity-wrapper">
+            <app-icon-svg [iconId]="'humidity'" class="humidity-icon"></app-icon-svg>
+            <span>Humidity: {{weatherInfo?.main?.humidity}}</span>
+          </p>
         </div>
       </li>
     </div>

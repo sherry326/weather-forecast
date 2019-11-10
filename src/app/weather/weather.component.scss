@@ -67,4 +67,25 @@
       justify-content: center;
     }
   }
+
+  .description{
+    padding-bottom: 0.5rem;
+  }
+
+  .temperature{
+    font-weight: bold;
+    background-color: rgba(193,219,255,0.8);
+    border-radius: 30px;
+  }
+
+  .humidity-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .humidity-icon{
+    display: flex;
+  }
+
 }

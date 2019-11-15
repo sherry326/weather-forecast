@@ -6,14 +6,14 @@
 
   <div class="header-search">
 
-    <input class="search-box" name="cityName" type="text" [(ngModel)]="indexCity.cityName" (ngModelChange)="inputNameChange()">
-
-    <ul class="city-list" *ngIf="(cities | cityFilter: indexCity.cityName).length" [hidden]="hideCityList">
-      <li *ngFor="let city of (cities | cityFilter: indexCity.cityName)"  (click)="SearchCityWeather(city)">
-        {{city.cityName}}
-      </li>
-    </ul>
-
+    <input class="search-box" name="cityName" id="cityName" type="text" [(ngModel)]="indexCity.cityName" (ngModelChange)="inputNameChange()">
+    <label for="cityName">
+      <ul class="city-list" *ngIf="(cities | cityFilter: indexCity.cityName).length" [hidden]="hideCityList">
+        <li *ngFor="let city of (cities | cityFilter: indexCity.cityName)"  (click)="SearchCityWeather(city)">
+          {{city.cityName}}
+        </li>
+      </ul>
+    </label>
     <button class="search-button" (click)="toSearchCityWeather($event)">Search</button>
   </div>
 
